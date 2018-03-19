@@ -3,12 +3,13 @@ require 'date'
 require './lib/database_connection'
 
 class Peep
-  attr_reader :peep_id, :peep, :time, :username
-  def initialize(peep_id, peep, time, username)
+  attr_reader :peep_id, :peep, :time, :username, :profile_pic
+  def initialize(peep_id, peep, time, username, profile_pic)
     @peep_id = peep_id
     @peep = peep
     @time = time
     @username = username
+    @profile_pic = profile_pic
   end
 
   def self.show_all
@@ -21,15 +22,14 @@ class Peep
   end
 
   def self.delete_peeps(user_id)
-    # TODO: finish this
     DatabaseConnection.query("DELETE FROM peeps WHERE user_id =#{user_id}")
   end
 
   private_class_method
 
   def self.fetch_records
-    DatabaseConnection.query("SELECT peeps.id, peeps.peep, peeps.date,
-      users.username FROM peeps INNER JOIN users ON peeps.user_id=users.id ORDER BY peeps.date DESC;")
+    DatabaseConnection.query("SELECT peeps.id, peeps.peep, peeps.date, users.username,
+      users.profile_pic FROM peeps INNER JOIN users ON peeps.user_id=users.id ORDER BY peeps.date DESC;")
   end
 
   def self.fix_time(time)
@@ -37,7 +37,7 @@ class Peep
   end
 
   def self.make_array(peeps)
-    peeps.map { |p| Peep.new(p['id'], p['peep'], fix_time(p['date']), p['username']) }
+    peeps.map { |p| Peep.new(p['id'], p['peep'], fix_time(p['date']), p['username'], p['profile_pic']) }
   end
 
 end

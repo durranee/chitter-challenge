@@ -28,8 +28,12 @@ class Chitter < Sinatra::Base
   end
 
   post '/signup' do
+    filename = params[:file][:filename]
+    file = params[:file][:tempfile]
+
     signed_up = User.add(params[:txt_username], params[:txt_pwd],
-      params[:txt_first_name], params[:txt_last_name], params[:txt_email])
+      params[:txt_first_name], params[:txt_last_name],
+      params[:txt_email], filename, file)
     if !signed_up
       flash[:error] = MSGS[:signup_err]
       redirect('/signup')

@@ -10,6 +10,7 @@
     .red{ color: rgb(255,0,0);}
     .show-if-active-user { visibility: <%=@active_user%>;}
     .show-if-no-user { visibility: <%=@no_active_user%>;}
+    #profile_pic { height: 80px; width: 80px; overflow: hidden; }
   </style>
   <body>
 <!--  NAVBAR CODE -->
@@ -78,9 +79,18 @@
           <% @peeps.each do |peep| %>
 
           <li class="list-group-item" data-toggle="collapse" data-target="#<%=peep.peep_id%>">
-            <div class="name"><small><strong><%=peep.username%>:</strong></small></div>
-            <div class="tweet ml-3"><%=peep.peep%></div>
-            <div class="timestamp collapse font-italic text-right" id="<%=peep.peep_id%>"><small>peeped on: <%=peep.time%></small></div>
+            <div class="">
+              <div class="name"><small><strong><%=peep.username%>:</strong></small></div>
+
+                  <img id = "profile_pic" lass="img-thumbnail" src="<%=peep.profile_pic%>">
+
+                <span class="right-part">
+                  <span class="tweet"><%=peep.peep%></span>
+                  <div class="timestamp collapse font-italic text-right" id="<%=peep.peep_id%>"><small>peeped on: <%=peep.time%></small></div>
+
+                </span>
+
+            </div>
           </li>
           <%end%>
           <!-- peeps li ends here -->

@@ -20,11 +20,10 @@
         </div>
       </div>
 
-      <!-- <h1 class="h3 mb-3 font-weight-normal text-center">Sign up to chat</h1> -->
       <div>
         <span class= "col-6 float-right text-right"><a href="/peeps"><small>Continue without sign up</a></small></span>
       </div>
-      <form class="peep-box text" action="/signup" method="post">
+      <form class="peep-box text" action="/signup" method="post" enctype="multipart/form-data">
         <div class="row">
           <div class="form-group col-6">
           <input type="text" class="form-control" name="txt_first_name" id='txt_first_name' placeholder="First Name" required>
@@ -46,6 +45,11 @@
 
           <div class="form-group col-6">
           <input type="password" class="form-control" name="txt_pwd" id='txt_pwd' placeholder="Password" required>
+          </div>
+          <div class="form-group col-6">
+            <label for="file_upload">Your photo</label>
+            <input type="file" class="form-control-file" name="file" id="file_upload" accept="image/x-png,image/gif,image/jpeg" aria-describedby="photos" required>
+            <small id="fileHelp" class="form-text text-muted">No nudes please.</small>
           </div>
         </div>
 

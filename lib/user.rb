@@ -1,3 +1,5 @@
+require './lib/file_ops'
+
 class User
 
   def self.login(username, password)
@@ -6,8 +8,11 @@ class User
     result.any? ? result.first["id"].to_i : 0
   end
 
-  def self.add(username, password, first_name, last_name, email)
+  def self.add(username, password, first_name, last_name,
+    email, filename, file)
     return false if exists?(username, nil, email)
+    # puts "file name is: #{filename}"
+    FileOps.save_photo(username, filename, file)
     DatabaseConnection.query("INSERT INTO users (
       username, password, first_name, last_name, email) VALUES ('#{username}',
       '#{password}', '#{first_name}', '#{last_name}', '#{email}');")
@@ -37,4 +42,5 @@ class User
     end
     DatabaseConnection.query(query).any?
   end
+
 end
