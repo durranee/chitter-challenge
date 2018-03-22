@@ -3,7 +3,7 @@ require 'pg'
 class DatabaseConnection
 
   def self.connect(db_name)
-    @connection = PG.connect(dbname: db_name)
+    @connection = PG.connect(ENV['DATABASE_URL'])
   end
 
   def self.database
